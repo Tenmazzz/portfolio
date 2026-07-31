@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="fr" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Billetterie d'avion — Rayan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../globals.css">
+  <style>
+    .project-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: var(--background);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'Baloo Thambi 2', cursive;
+      font-size: 1.4rem;
+      color: var(--text-high);
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--solid); }
+    .project-page { max-width: 860px; margin: 0 auto; padding: 7rem 2rem 4rem; }
+    .project-banner { margin-bottom: 2rem; }
+    .project-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-low);
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+      transition: color 0.2s;
+      text-decoration: none;
+    }
+    .project-back:hover { color: var(--solid); }
+    .project-banner-title { font-size: clamp(2.2rem, 6vw, 4rem); color: var(--text-high); line-height: 1.1; margin-bottom: 0.5rem; }
+    .project-stack { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.5rem; }
+    .stack-tag { background: var(--component-bg); color: var(--text-low); border: 1px solid var(--border); border-radius: 6px; padding: 0.3rem 0.8rem; font-size: 0.85rem; font-weight: 600; }
+    .project-image { width: 100%; border-radius: 14px; border: 1px solid var(--border-subtle); background: var(--background-subtle); min-height: 300px; display: flex; align-items: center; justify-content: center; color: var(--text-low); font-size: 0.9rem; margin-bottom: 3rem; overflow: hidden; }
+    .project-image img { width: 100%; height: 100%; object-fit: cover; border-radius: 14px; }
+    .project-divider { height: 1px; background: var(--border-subtle); margin: 2.5rem 0; }
+    .project-section-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--solid); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+    .project-section-label::before { content: ''; display: inline-block; width: 20px; height: 2px; background: var(--solid); border-radius: 2px; }
+    .project-section-title { font-size: 1.6rem; color: var(--text-high); margin-bottom: 1rem; }
+    .project-text { color: var(--text-body); font-size: 1rem; line-height: 1.85; }
+  </style>
+</head>
+<body>
+
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">R<span>.</span>dev</a>
+      <div style="display:flex;gap:0.5rem;align-items:center;">
+        <button class="nav-theme-btn" id="langToggle" title="Switch language">🇫🇷</button>
+        <button class="nav-theme-btn" id="themeToggle" title="Changer le thème">🌙</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="project-page">
+
+    <div class="project-banner">
+      <a href="javascript:history.back()" class="project-back" data-fr="← Retour au portfolio" data-en="← Back to portfolio">← Retour au portfolio</a>
+      <h1 class="project-banner-title" data-fr="✈️ Billetterie d'avion" data-en="✈️ Flight Booking">✈️ Billetterie d'avion</h1>
+      <div class="project-divider"></div>
+      <div>
+        <p class="project-section-label" data-fr="Stack" data-en="Stack">Stack</p>
+        <h2 class="project-section-title" data-fr="Technologies utilisées" data-en="Technologies used">Technologies utilisées</h2>
+        <div class="project-stack">
+          <span class="stack-tag">Laravel</span>
+          <span class="stack-tag">Sqlite</span>
+          <span class="stack-tag">Bootstrap</span>
+        </div>
+      </div>
+      <div class="project-divider"></div>
+    </div>
+
+    <div>
+      <p class="project-section-label" data-fr="Contexte" data-en="Context">Contexte</p>
+      <h2 class="project-section-title" data-fr="Pourquoi ce projet ?" data-en="Why this project?">Pourquoi ce projet ?</h2>
+      <p class="project-text"
+         data-fr="Pour ma deuxième année de licence, pour le projet de fin d'année, il a été demandé de faire une simulation d'un site web d'une billetterie de billets d'avion. Ce projet était à faire en binôme pour qu'on commence à répartir le travail et nous initier aux travaux de groupe."
+         data-en="For my second year of the Computer Science degree, as a final year project, we were asked to build a simulation of a flight ticket booking website. This project was done in pairs to start distributing work and get us introduced to group projects.">
+        Pour ma deuxième année de licence, pour le projet de fin d'année, il a été demandé de faire une simulation d'un site web d'une billetterie de billets d'avion. Ce projet était à faire en binôme pour qu'on commence à répartir le travail et nous initier aux travaux de groupe.
+      </p>
+    </div>
+
+    <div class="project-divider"></div>
+
+    <div>
+      <p class="project-section-label" data-fr="Le projet" data-en="The project">Le projet</p>
+      <h2 class="project-section-title" data-fr="Comment ça fonctionne ?" data-en="How does it work?">Comment ça fonctionne ?</h2>
+      <p class="project-text"
+         data-fr="Le site propose un système de filtre qui permet de rechercher les vols qui nous conviennent. Une fois le ou les vols ajoutés, on peut passer au panier qui nous emmène vers une page d'inscription.<br>Il y a également une partie admin qui permet au personnel de pouvoir garder un œil sur les passagers, et d'ajouter ou de modifier/supprimer des vols."
+         data-en="The site offers a filter system to search for suitable flights. Once one or more flights are added, you can proceed to the cart which leads to a registration page.<br>There is also an admin panel that allows staff to keep an eye on passengers, and add or modify/delete flights.">
+        Le site propose un système de filtre qui permet de rechercher les vols qui nous conviennent. Une fois le ou les vols ajoutés, on peut passer au panier qui nous emmène vers une page d'inscription.<br>Il y a également une partie admin qui permet au personnel de pouvoir garder un œil sur les passagers, et d'ajouter ou de modifier/supprimer des vols.
+      </p>
+    </div>
+
+    <div class="project-divider"></div>
+
+    <div class="project-image">
+      <img src="new_projet_vol_home.png" alt="Billetterie avion home">
+    </div>
+
+    <div class="project-image">
+      <img src="new_projet_vol_auth_admin.png" alt="Billetterie avion authentification admin">
+    </div>
+
+    <div class="project-image">
+      <img src="new_projet_vol_admin.png" alt="Billetterie avion admin space">
+    </div>
+
+  </div>
+
+  <footer>
+    <p data-fr="Conçu & développé par" data-en="Designed & built by">Conçu & développé par</p>
+    <p><strong style="color:var(--text-high)">Rayan</strong> · 2026</p>
+  </footer>
+
+  <script>
+    const html = document.documentElement;
+    const themeBtn = document.getElementById('themeToggle');
+    const langBtn = document.getElementById('langToggle');
+
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    html.classList.toggle('dark', savedTheme === 'dark');
+    themeBtn.textContent = savedTheme === 'dark' ? '🌙' : '☀️';
+
+    let currentLang = localStorage.getItem('lang') || 'fr';
+    langBtn.textContent = currentLang === 'fr' ? 'FR' : 'EN';
+    html.setAttribute('lang', currentLang);
+    if (currentLang === 'en') {
+      document.querySelectorAll('[data-fr][data-en]').forEach(el => {
+        const val = el.getAttribute('data-en');
+        if (val) el.innerHTML = val;
+      });
+    }
+
+    function transition(callback, direction) {
+      document.body.style.overflow = 'hidden';
+      const cover = document.createElement('div');
+      cover.style.cssText = `position:fixed;inset:0;background:var(--solid);transform:translateX(${direction === 'left' ? '-100%' : '100%'});z-index:9999;pointer-events:none;transition:transform 0.4s cubic-bezier(0.77,0,0.18,1);`;
+      document.body.appendChild(cover);
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          cover.style.transform = 'translateX(0)';
+          setTimeout(() => {
+            callback();
+            cover.style.transform = direction === 'left' ? 'translateX(100%)' : 'translateX(-100%)';
+            setTimeout(() => {
+              cover.remove();
+              document.body.style.overflow = '';
+            }, 420);
+          }, 420);
+        });
+      });
+    }
+
+    themeBtn.addEventListener('click', () => {
+      const isDark = html.classList.contains('dark');
+      transition(() => {
+        html.classList.toggle('dark');
+        localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+        themeBtn.textContent = html.classList.contains('dark') ? '🌙' : '☀️';
+      }, isDark ? 'left' : 'right');
+    });
+
+    langBtn.addEventListener('click', () => {
+      const goingEn = currentLang === 'fr';
+      transition(() => {
+        currentLang = goingEn ? 'en' : 'fr';
+        localStorage.setItem('lang', currentLang);
+        langBtn.textContent = currentLang === 'fr' ? 'FR' : 'EN';
+        html.setAttribute('lang', currentLang);
+        document.querySelectorAll('[data-fr][data-en]').forEach(el => {
+          const val = el.getAttribute('data-' + currentLang);
+          if (val) el.innerHTML = val;
+        });
+      }, goingEn ? 'left' : 'right');
+    });
+  </script>
+
+</body>
+</html>

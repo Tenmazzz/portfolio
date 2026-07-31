@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; }
+    @keyframes scrollLine { 0%,100% { transform: scaleY(1); opacity:0.3; } 50% { transform: scaleY(0.4); opacity:1; } }
+    ::selection { background: #a8461e; color: #f6f3ee; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #8b8678; }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+</helmet>
+
+<div ref="{{rootRef}}" style="background:{{c.bg}};color:{{c.body}};min-height:100vh;font-family:'IBM Plex Sans',sans-serif;transition:background 0.3s,color 0.3s;">
+
+  <nav style="position:fixed;top:0;left:0;right:0;z-index:100;background:{{c.bg}};border-bottom:1px solid {{c.border}};padding:1.1rem 2rem;transition:background 0.3s,border-color 0.3s;">
+    <div style="max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;">
+      <a href="#hero" style="font-family:'Newsreader',serif;font-style:italic;font-size:1.3rem;color:{{c.high}};text-decoration:none;">Rayan<span style="color:{{c.accent}};">.</span></a>
+      <sc-if value="{{isDesktop}}" hint-placeholder-val="{{true}}">
+        <ul style="display:flex;gap:2rem;list-style:none;margin:0;padding:0;">
+          <sc-for list="{{navItems}}" as="n" hint-placeholder-count="5">
+            <li><a href="{{n.href}}" style="{{n.style}}" style-hover="border-bottom:1px solid {{c.accent}};color:{{c.high}};">{{n.label}}</a></li>
+          </sc-for>
+        </ul>
+      </sc-if>
+      <div style="display:flex;gap:0.6rem;align-items:center;">
+        <button onClick="{{toggleLang}}" style="background:none;border:1px solid {{c.border}};color:{{c.body}};font-family:'IBM Plex Mono',monospace;font-size:0.72rem;letter-spacing:0.05em;padding:0.35rem 0.6rem;cursor:pointer;" style-hover="border-color:{{c.accent}};color:{{c.high}};">{{langLabel}}</button>
+        <button onClick="{{toggleTheme}}" style="background:none;border:1px solid {{c.border}};color:{{c.body}};font-family:'IBM Plex Mono',monospace;font-size:0.72rem;letter-spacing:0.05em;padding:0.35rem 0.6rem;cursor:pointer;" style-hover="border-color:{{c.accent}};color:{{c.high}};">{{themeLabel}}</button>
+      </div>
+    </div>
+  </nav>
+
+  <section id="hero" style="min-height:100vh;display:flex;flex-direction:column;justify-content:center;max-width:960px;margin:0 auto;padding:6rem 2rem 4rem;position:relative;">
+    <p style="font-family:'IBM Plex Mono',monospace;font-size:0.8rem;letter-spacing:0.08em;text-transform:uppercase;color:{{c.accent}};margin:0 0 1.5rem;">{{heroEyebrow}}</p>
+    <h1 style="font-family:'Newsreader',serif;font-style:italic;font-weight:500;font-size:clamp(3rem,9vw,6.5rem);line-height:0.98;color:{{c.high}};margin:0 0 1.5rem;">Rayan<span style="color:{{c.accent}};">.</span></h1>
+    <p style="max-width:520px;font-size:1.05rem;line-height:1.8;color:{{c.body}};margin:0 0 2.5rem;">{{heroDesc}}</p>
+    <div style="display:flex;gap:2rem;flex-wrap:wrap;align-items:center;">
+      <a href="#projects" style="color:{{c.high}};text-decoration:none;font-weight:500;font-size:1rem;border-bottom:1px solid {{c.accent}};padding-bottom:3px;display:inline-flex;align-items:center;gap:0.5rem;" style-hover="color:{{c.accent}};">{{ctaProjects}} <span>→</span></a>
+      <a href="#contact" style="color:{{c.low}};text-decoration:none;font-weight:500;font-size:1rem;border-bottom:1px solid transparent;padding-bottom:3px;" style-hover="color:{{c.high}};border-bottom:1px solid {{c.border}};">{{ctaContact}}</a>
+    </div>
+    <div style="position:absolute;bottom:2.5rem;left:2rem;display:flex;align-items:center;gap:0.6rem;color:{{c.low}};font-family:'IBM Plex Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;">
+      <span style="display:inline-block;width:1px;height:22px;background:{{c.accent}};animation:scrollLine 2s ease-in-out infinite;transform-origin:top;"></span>
+      {{scrollHint}}
+    </div>
+  </section>
+
+  <div style="height:1px;background:{{c.border}};max-width:960px;margin:0 auto;"></div>
+
+  <section id="projects" style="max-width:960px;margin:0 auto;padding:6rem 2rem;position:relative;">
+    <div data-reveal="1" style="opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease;">
+      <h2 style="font-family:'Newsreader',serif;font-size:clamp(1.8rem,4vw,2.6rem);color:{{c.high}};margin:0 0 3rem;font-weight:500;">{{projectsTitle}}</h2>
+    </div>
+    <div>
+      <sc-for list="{{projects}}" as="p" hint-placeholder-count="2">
+        <div onMouseEnter="{{p.onEnter}}" onMouseLeave="{{p.onLeave}}" onClick="{{p.onClick}}" data-reveal="1" style="opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease;display:flex;align-items:baseline;gap:1.5rem;padding:1.75rem 0;border-bottom:1px solid {{c.border}};cursor:pointer;">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:0.85rem;color:{{c.low}};flex-shrink:0;">{{p.idx}}</span>
+          <div style="flex:1;min-width:0;">
+            <div style="font-family:'Newsreader',serif;font-size:1.5rem;color:{{c.high}};margin-bottom:0.35rem;">{{p.title}}</div>
+            <div style="font-size:0.9rem;color:{{c.body}};line-height:1.6;max-width:520px;">{{p.desc}}</div>
+          </div>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:0.78rem;color:{{c.low}};flex-shrink:0;white-space:nowrap;">
+            {{p.techStr}}<sc-if value="{{p.techMore}}" hint-placeholder-val="{{false}}"> <span style="color:{{c.accent}};">+{{p.techMore}}</span></sc-if>
+          </span>
+          <span style="color:{{c.accent}};font-size:1.2rem;transition:transform 0.2s;flex-shrink:0;">→</span>
+        </div>
+      </sc-for>
+    </div>
+    <sc-if value="{{showPreview}}" hint-placeholder-val="{{false}}">
+      <div style="position:fixed;top:50%;right:3rem;width:340px;height:220px;transform:translateY(-50%);border:1px solid {{c.border}};background:{{c.surface}};overflow:hidden;pointer-events:none;opacity:1;transition:opacity 0.25s ease;z-index:5;">
+        <img src="{{previewImage}}" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+    </sc-if>
+  </section>
+
+  <div style="height:1px;background:{{c.border}};max-width:960px;margin:0 auto;"></div>
+
+  <section id="skills" style="max-width:960px;margin:0 auto;padding:6rem 2rem;">
+    <div data-reveal="1" style="opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease;">
+      <h2 style="font-family:'Newsreader',serif;font-size:clamp(1.8rem,4vw,2.6rem);color:{{c.high}};margin:0 0 3rem;font-weight:500;">{{skillsTitle}}</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2.5rem;">
+      <sc-for list="{{skills}}" as="s" hint-placeholder-count="3">
+        <div data-reveal="1" style="opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease;">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:0.8rem;letter-spacing:0.06em;text-transform:uppercase;color:{{c.high}};padding-bottom:0.6rem;border-bottom:1px solid {{c.accent}};margin-bottom:0.9rem;display:inline-block;">{{s.label}}</div>
+          <div style="font-size:0.92rem;color:{{c.body}};line-height:2;">{{s.itemsStr}}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <div style="height:1px;background:{{c.border}};max-width:960px;margin:0 auto;"></div>
+
+  <section id="experience" style="max-width:960px;margin:0 auto;padding:6rem 2rem;">
+    <div data-reveal="1" style="opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease;">
+      <h2 style="font-family:'Newsreader',serif;font-size:clamp(1.8rem,4vw,2.6rem);color:{{c.high}};margin:0 0 3rem;font-weight:500;">{{experienceTitle}}</h2>
+    </div>
+    <sc-for list="{{timeline}}" as="e" hint-placeholder-count="2">
+      <div data-reveal="1" style="opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease;display:grid;grid-template-columns:120px 1fr;gap:1.5rem;padding:1.75rem 0;border-bottom:1px solid {{c.border}};">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:0.8rem;color:{{c.low}};padding-top:0.3rem;">{{e.date}}</div>
+        <div>
+          <div style="font-family:'Newsreader',serif;font-size:1.25rem;color:{{c.high}};margin-bottom:0.3rem;">{{e.role}}</div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:0.8rem;color:{{c.accent}};margin-bottom:0.6rem;">{{e.company}}</div>
+          <div style="font-size:0.9rem;color:{{c.body}};line-height:1.75;max-width:560px;">{{e.desc}}</div>
+        </div>
+      </div>
+    </sc-for>
+  </section>
+
+  <div style="height:1px;background:{{c.border}};max-width:960px;margin:0 auto;"></div>
+
+  <section id="contact" style="max-width:960px;margin:0 auto;padding:6rem 2rem;text-align:center;">
+    <div data-reveal="1" style="opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease;">
+      <h2 style="font-family:'Newsreader',serif;font-style:italic;font-size:clamp(2rem,5vw,3rem);color:{{c.high}};margin:0 0 1.25rem;font-weight:500;">{{contactTitle}}<span style="color:{{c.accent}};">.</span></h2>
+      <p style="max-width:440px;margin:0 auto 2.5rem;color:{{c.body}};font-size:1rem;line-height:1.8;">{{contactDesc}}</p>
+      <div style="display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;">
+        <a href="mailto:rayank.devs@gmail.com" onMouseEnter="{{onEmailEnter}}" onMouseLeave="{{onContactLeave}}" style="{{emailStyle}}">Email</a>
+        <a href="https://github.com/Tenmazzz" target="_blank" onMouseEnter="{{onGithubEnter}}" onMouseLeave="{{onContactLeave}}" style="{{githubStyle}}">GitHub</a>
+        <a href="https://www.linkedin.com/in/rayan-khan-704791389/" target="_blank" onMouseEnter="{{onLinkedinEnter}}" onMouseLeave="{{onContactLeave}}" style="{{linkedinStyle}}">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <footer style="text-align:center;padding:2.5rem;color:{{c.low}};font-family:'IBM Plex Mono',monospace;font-size:0.75rem;border-top:1px solid {{c.border}};">
+    Rayan · {{year}}
+  </footer>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { dark: true, lang: 'fr', hoveredIdx: null, activeSection: 'hero', contactHover: null, isDesktop: (typeof window !== 'undefined' ? window.innerWidth > 900 : true) };
+
+  projectsData = [
+    { href: 'Screenshot App.dc.html', image: 'assets/screenshot-app_home.png',
+      title: { fr: 'Screenshot App', en: 'Screenshot App' },
+      desc: { fr: "Application web qui prend une capture d'écran d'une page à partir d'une URL.", en: 'Web app that captures a screenshot of any page from a URL.' },
+      tech: ['Vue.js', 'Laravel', 'Python', 'Docker'], stackTotal: 14 },
+    { href: 'Billetterie Avion.dc.html', image: 'assets/vol_home.png',
+      title: { fr: 'Billetterie Avion', en: 'Flight Booking' },
+      desc: { fr: 'Simulation de réservation de vols avec sélection de sièges.', en: 'Flight booking simulation with seat selection.' },
+      tech: ['Laravel', 'JavaScript', 'CSS'], stackTotal: 3 }
+  ];
+
+  skillsData = [
+    { label: 'Frontend', items: ['Vue.js', 'Tailwind CSS'] },
+    { label: 'Backend', items: ['Python (FastAPI)', 'PHP (Laravel)', 'Java', 'PostgreSQL', 'Redis', 'REST API'] },
+    { label: 'DevOps', items: ['Docker', 'Docker-compose', 'Linux', 'Nginx', 'Git', 'CI/CD', 'MinIO / S3'] }
+  ];
+
+  timelineData = [
+    { date: 'Avril — Septembre 2026', role: { fr: 'Stagiaire Développeur Fullstack & DevOps', en: 'Fullstack & DevOps Developer Intern' }, company: 'Free',
+      desc: { fr: "Développement d'applications web fullstack et mise en place d'infrastructures DevOps.", en: 'Fullstack web development and DevOps infrastructure setup.' } },
+    { date: '2023 — 2026', role: { fr: 'Licence Informatique', en: "Bachelor's in Computer Science" }, company: 'UPEC',
+      desc: { fr: "Algorithmique, réseaux, bases de données, développement logiciel, POO, design patterns (adaptateur, etc.).", en: 'Algorithms, networking, databases, software development, OOP, design patterns (adapter, etc.).' } }
+  ];
+
+  componentDidMount() {
+    this._onResize = () => this.setState({ isDesktop: window.innerWidth > 900 });
+    window.addEventListener('resize', this._onResize);
+    this._sectionIds = ['hero', 'projects', 'skills', 'experience', 'contact'];
+    this._onScroll = () => {
+      const scrollY = window.scrollY;
+      const atBottom = window.innerHeight + scrollY >= document.documentElement.scrollHeight - 10;
+      let current = this.state.activeSection || 'hero';
+      if (atBottom) {
+        current = 'contact';
+      } else {
+        this._sectionIds.forEach((id) => {
+          const el = document.getElementById(id);
+          if (el && scrollY >= el.offsetTop - 150) current = id;
+        });
+      }
+      if (current !== this.state.activeSection) this.setState({ activeSection: current });
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    this._onScroll();
+    this._observer = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+          this._observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    if (this._root) this._root.querySelectorAll('[data-reveal]').forEach((el) => this._observer.observe(el));
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._onResize);
+    window.removeEventListener('scroll', this._onScroll);
+    if (this._observer) this._observer.disconnect();
+  }
+
+  contactLinkStyle(id, c) {
+    const active = this.state.contactHover === id;
+    return `color:${active ? c.accent : c.high};text-decoration:none;font-weight:500;border-bottom:1px solid ${active ? c.accent : c.border};padding-bottom:3px;transition:color 0.15s,border-color 0.15s;`;
+  }
+
+  setRootRef = (el) => {
+    this._root = el;
+    if (el && this._observer) el.querySelectorAll('[data-reveal]').forEach((n) => this._observer.observe(n));
+  };
+
+  renderVals() {
+    const lang = this.state.lang;
+    const dark = this.state.dark;
+    const c = dark ? {
+      bg: '#15140f', surface: '#1b1a14', high: '#f3f0e8', body: '#b6b1a4', low: '#726d60', border: '#2b2a22',
+      accent: 'oklch(0.72 0.13 55)', accentHover: 'oklch(0.8 0.12 55)'
+    } : {
+      bg: '#f6f3ee', surface: '#efeae1', high: '#1c1a16', body: '#54514a', low: '#8b8678', border: '#dedad0',
+      accent: 'oklch(0.53 0.15 45)', accentHover: 'oklch(0.45 0.15 45)'
+    };
+
+    const T = (obj) => obj[lang] ?? obj.fr;
+
+    const projects = this.projectsData.map((p, i) => ({
+      idx: String(i + 1).padStart(2, '0'),
+      title: T(p.title), desc: T(p.desc), techStr: p.tech.join(' · '),
+      techMore: Math.max((p.stackTotal || p.tech.length) - p.tech.length, 0),
+      href: p.href, image: p.image,
+      onEnter: () => this.setState({ hoveredIdx: i }),
+      onLeave: () => this.setState({ hoveredIdx: null }),
+      onClick: () => { window.location.href = p.href; }
+    }));
+
+    const skills = this.skillsData.map((s) => ({ label: s.label, itemsStr: s.items.join('   ·   ') }));
+    const timeline = this.timelineData.map((t) => ({ date: t.date, role: T(t.role), company: t.company, desc: T(t.desc) }));
+    const hovered = this.state.hoveredIdx != null ? this.projectsData[this.state.hoveredIdx] : null;
+
+    const activeSection = this.state.activeSection || 'hero';
+    const linkStyle = (id) => `color:${id === activeSection ? c.high : c.body};text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:0.78rem;letter-spacing:0.06em;text-transform:uppercase;border-bottom:1px solid ${id === activeSection ? c.accent : 'transparent'};padding-bottom:2px;`;
+    const navItems = [
+      { id: 'hero', href: '#hero', label: lang === 'fr' ? 'Accueil' : 'Home' },
+      { id: 'projects', href: '#projects', label: lang === 'fr' ? 'Projets' : 'Projects' },
+      { id: 'skills', href: '#skills', label: lang === 'fr' ? 'Compétences' : 'Skills' },
+      { id: 'experience', href: '#experience', label: lang === 'fr' ? 'Expériences' : 'Experience' },
+      { id: 'contact', href: '#contact', label: 'Contact' }
+    ].map((n) => ({ href: n.href, label: n.label, style: linkStyle(n.id) }));
+
+    return {
+      c, rootRef: this.setRootRef, isDesktop: this.state.isDesktop,
+      langLabel: lang === 'fr' ? 'EN' : 'FR',
+      themeLabel: dark ? (lang === 'fr' ? 'Clair' : 'Light') : (lang === 'fr' ? 'Sombre' : 'Dark'),
+      toggleLang: () => this.setState({ lang: lang === 'fr' ? 'en' : 'fr' }),
+      toggleTheme: () => this.setState({ dark: !dark }),
+      navItems,
+      heroEyebrow: lang === 'fr' ? 'Portfolio — Développeur Fullstack & DevOps' : 'Portfolio — Fullstack & DevOps Developer',
+      heroDesc: lang === 'fr'
+        ? "Étudiant en Licence Informatique à l'UPEC, actuellement en stage chez Free où je travaille sur des projets fullstack et DevOps."
+        : 'Computer Science student at UPEC, currently interning at Free, working on fullstack and DevOps projects.',
+      ctaProjects: lang === 'fr' ? 'Voir mes projets' : 'View my projects',
+      ctaContact: lang === 'fr' ? 'Me contacter' : 'Contact me',
+      scrollHint: lang === 'fr' ? 'Défiler' : 'Scroll',
+      projectsTitle: lang === 'fr' ? "Ce que j'ai construit" : "What I've built",
+      projects,
+      previewImage: hovered ? hovered.image : '',
+      showPreview: !!(this.state.isDesktop && hovered),
+      skillsTitle: lang === 'fr' ? 'Ce que je maîtrise' : 'What I know',
+      skills,
+      experienceTitle: lang === 'fr' ? 'Mon parcours' : 'My journey',
+      timeline,
+      contactTitle: lang === 'fr' ? 'Travaillons ensemble' : "Let's work together",
+      emailStyle: this.contactLinkStyle('email', c),
+      githubStyle: this.contactLinkStyle('github', c),
+      linkedinStyle: this.contactLinkStyle('linkedin', c),
+      onEmailEnter: () => this.setState({ contactHover: 'email' }),
+      onGithubEnter: () => this.setState({ contactHover: 'github' }),
+      onLinkedinEnter: () => this.setState({ contactHover: 'linkedin' }),
+      onContactLeave: () => this.setState({ contactHover: null }),
+      contactDesc: lang === 'fr' ? "Disponible pour une alternance ou un stage. N'hésite pas à me contacter." : 'Available for an apprenticeship or internship. Feel free to reach out.',
+      year: '2026'
+    };
+  }
+}
+
+</script>
+</body>
+</html>

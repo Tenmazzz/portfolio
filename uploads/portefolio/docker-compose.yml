@@ -1,0 +1,9 @@
+services:
+  portfolio:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - ./index.html:/usr/share/nginx/html/index.html
+      - ./globals.css:/usr/share/nginx/html/globals.css
+      - ./projects:/usr/share/nginx/html/projects
